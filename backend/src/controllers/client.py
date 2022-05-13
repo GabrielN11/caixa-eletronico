@@ -8,21 +8,17 @@ app, api = server.app, server.api
 
 @api.route('/client')
 class ClientRoute(Resource):
+
+    def __init__(self):
+        self.client = Client()
+
     def get(self):
         id = request.args.get('id')
         if id == None or id == '':
             return 'Parâmetro não foi passado!', 403
-        sql = f"""
-            SELECT * FROM cliente WHERE id = {id}; 
-        """
         try:
-            with mysql as db:
-                cursor = db.conn.cursor()
-
-                cursor.execute(sql)
-                user = cursor.fetchall()
-                db.conn.commit()
-            return user[0], 200
+            client = self.client.selectClient(id)
+            return client
         except Exception as err:
             return err, 500
         
@@ -33,11 +29,11 @@ class ClientRoute(Resource):
         surname = data['surname']
         cpf = data['cpf']
 
-        if not self.validateName(name):
+        if not self.client.validateName(name):
             return 'Nome é muito longo', 403
-        elif not self.validateSurname(surname):
+        elif not self.client.validateSurname(surname):
             return 'Sobrenome é muito longo', 403
-        elif not self.validateCpf(cpf):
+        elif not self.client.validateCpf(cpf):
             return 'CPF inválido!', 403
         else:
             sql = f"""
@@ -66,11 +62,11 @@ class ClientRoute(Resource):
         surname = data['surname']
         cpf = data['cpf']
 
-        if not self.validateName(name):
+        if not self.client.validateName(name):
             return 'Nome é muito longo', 403
-        elif not self.validateSurname(surname):
+        elif not self.client.validateSurname(surname):
             return 'Sobrenome é muito longo', 403
-        elif not self.validateCpf(cpf):
+        elif not self.client.validateCpf(cpf):
             return 'CPF inválido!', 403
 
         sql = f"""
@@ -103,6 +99,7 @@ class ClientRoute(Resource):
         except Exception as err:
             return err, 500
 
+class Client:
     def validateName(self, name):
         return not len(name) > 45
 
@@ -111,3 +108,15 @@ class ClientRoute(Resource):
 
     def validateSurname(self, surname):
         return not len(surname) > 100
+
+    def selectClient(self, id):
+        sql = f"""
+            SELECT * FROM cliente WHERE id = {id}; 
+        """
+        with mysql as db:
+            cursor = db.conn.cursor()
+
+            cursor.execute(sql)
+            user = cursor.fetchone()
+            db.conn.commit()
+        return user
