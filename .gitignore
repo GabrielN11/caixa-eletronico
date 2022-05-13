@@ -1,0 +1,54 @@
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+
+#FRONTEND
+
+# Compiled output
+/frontend/caixa-eletronico/dist
+/frontend/caixa-eletronico/tmp
+/frontend/caixa-eletronico/out-tsc
+/frontend/caixa-eletronico/bazel-out
+
+# Node
+/frontend/caixa-eletronico/node_modules
+/frontend/caixa-eletronico/npm-debug.log
+/frontend/caixa-eletronico/yarn-error.log
+
+# IDEs and editors
+.idea/
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# Visual Studio Code
+/frontend/caixa-eletronico/.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.history/*
+
+# Miscellaneous
+/frontend/caixa-eletronico/.angular/cache
+/frontend/caixa-eletronico/.sass-cache/
+/frontend/caixa-eletronico/connect.lock
+/frontend/caixa-eletronico/coverage
+/frontend/caixa-eletronico/libpeerconnection.log
+/frontend/caixa-eletronico/testem.log
+/frontend/caixa-eletronico/typings
+
+# System files
+/frontend/caixa-eletronico/.DS_Store
+/frontend/caixa-eletronico/Thumbs.db
+
+#BACKEND
+
+__pycache__
+/backend/env
+/backend/variables.py
+
+#DB
+
+caixa-eletronico.mwb
