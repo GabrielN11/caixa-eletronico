@@ -1,6 +1,7 @@
 from flask import request
 from flask_restx import Resource
 import bcrypt
+import cryptography
 from datetime import datetime
 
 from src.server.instance import server
@@ -47,83 +48,12 @@ class AccountRoute(Resource):
         except Exception as err:
             return str(err), 500
 
-
-@api.route('/enter')
-class LoginRoute(Resource):
-
-    def post(self):
-        account = Account()
-        client = Client()
-        data = api.payload
-
-        number = data['number']
-        password = data['password']
-        try:
-            sql = f"""
-                SELECT senha FROM conta_bancaria WHERE numero = '{number}';
-            """
-            with mysql as bd:
-                cursor = bd.conn.cursor()
-                cursor.execute(sql)
-                hashedPassword = cursor.fetchone()[0].encode('utf-8')
-                bd.conn.commit()
-
-            if bcrypt.checkpw(password.encode('utf-8'), hashedPassword):
-                account_data = account.selectAccountByNumber(number)
-                client_data = client.selectClient(account_data['client_id'])
-                account_data['client'] = client_data
-                account.updateLastAccess(number)
-                return account_data, 200
-            else:
-                return 'Autenticação inválida!', 403
-        except Exception as err:
-            return str(err), 500
-
-
-@api.route('/transfer')
-class TransferRoute(Resource):
-
-    def post(self):
-        account = Account()
-        data = api.payload
-
-        receiver = data['receiver']
-        sender = data['sender']
-        value = float(data['value'])
-
-        try:
-            result = account.transfer(sender, receiver, value)
-            if(result):
-                return f'Transferência de R${value:.2f} efetuada com sucesso!', 200
-            else:
-                return 'O saldo atual é menor do que a quantia a ser transferida!', 403
-        except Exception as err:
-            return str(err), 500
-
 class Account:
     def selectAccount(self, id):
         sql = f"""
                 SELECT id, cliente_id, saldo, ultimo_acesso, numero FROM conta_bancaria WHERE id = {id};
             """
 
-        with mysql as db:
-            cursor = db.conn.cursor()
-            cursor.execute(sql)
-            account = cursor.fetchone()
-            db.conn.commit()
-        dictAccount = {
-            'id': account[0],
-            'client_id': account[1],
-            'balance': account[2],
-            'last_access': account[3],
-            'number': account[4]
-        }
-        return dictAccount
-
-    def selectAccountByNumber(self, number):
-        sql = f"""
-                SELECT id, cliente_id, saldo, ultimo_acesso, numero FROM conta_bancaria WHERE numero = '{number}';
-            """
         with mysql as db:
             cursor = db.conn.cursor()
             cursor.execute(sql)
@@ -161,64 +91,14 @@ class Account:
             cursor.execute(sql)
             bd.conn.commit()
 
-    def transfer(self, sender, receiver, value):
-        dt = datetime.now()
-        sqlSelect1 = f"""
-            SELECT saldo FROM conta_bancaria WHERE id = {sender};
-        """
+    def validatePassword(self, password):
+        return len(password) >= 4
+    
+    def validateNumber(self, number):
+        return number != None or number != ''
+    
+    def validateValue(self, value):
+        return value >= 0
 
-        sqlSelect2 = f"""
-            SELECT saldo, id from conta_bancaria WHERE numero = '{receiver}';
-        """
-
-        with mysql as bd:
-            cursor = bd.conn.cursor()
-
-            cursor.execute(sqlSelect1)
-            senderBalance = float(cursor.fetchone()[0])
-            bd.conn.commit()
-
-            cursor.execute(sqlSelect2)
-            receiverInfo = cursor.fetchone()
-            receiverBalance = receiverInfo[0]
-            receiverId = receiverInfo[1]
-            bd.conn.commit()
-
-
-        if(senderBalance - value > 0):
-            updateSql1 = f"""
-                UPDATE conta_bancaria SET saldo = {senderBalance - value} WHERE id = {sender};
-            """
-
-            updateSql2 = f"""
-                UPDATE conta_bancaria SET saldo = {receiverBalance + value} WHERE numero = '{receiver}';
-            """
-
-            insertSql1 = f"""
-                INSERT INTO transacao (valor, conta_bancaria_id, tipo, data) VALUES
-                ({-value}, {sender}, 'Transferência', '{dt}');
-            """
-            insertSql2 = f"""
-                INSERT INTO transacao (valor, conta_bancaria_id, tipo, data) VALUES
-                ({value}, {receiverId}, 'Transferência', '{dt}');
-            """
-
-
-            with mysql as bd:
-                cursor = bd.conn.cursor()
-                
-                cursor.execute(updateSql1)
-                bd.conn.commit()
-
-                cursor.execute(updateSql2)
-                bd.conn.commit()
-
-                cursor.execute(insertSql1)
-                bd.conn.commit()
-
-                cursor.execute(insertSql2)
-                bd.conn.commit()
-
-            return True
-        else:
-            return False
+    def validateId(self, id):
+        return id != None
