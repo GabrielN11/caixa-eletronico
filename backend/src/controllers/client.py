@@ -1,39 +1,38 @@
-from flask import Flask, request
-from flask_restx import Api, Resource
+from flask import request
+from flask_restx import Resource
 
-from server.instance import server
-from lib.mysql import mysql
+from src.lib.mysql import mysql
+from src.server.instance import server
 
 app, api = server.app, server.api
 
 @api.route('/client')
 class ClientRoute(Resource):
 
-    def __init__(self):
-        self.client = Client()
-
     def get(self):
+        client = Client()
         id = request.args.get('id')
         if id == None or id == '':
             return 'Parâmetro não foi passado!', 403
         try:
-            client = self.client.selectClient(id)
-            return client
+            data = client.selectClient(id)
+            return data, 200
         except Exception as err:
-            return err, 500
+            return str(err), 500
         
     def post(self):
+        client = Client()
         data = api.payload
 
         name = data['name']
         surname = data['surname']
         cpf = data['cpf']
 
-        if not self.client.validateName(name):
+        if not client.validateName(name):
             return 'Nome é muito longo', 403
-        elif not self.client.validateSurname(surname):
+        elif not client.validateSurname(surname):
             return 'Sobrenome é muito longo', 403
-        elif not self.client.validateCpf(cpf):
+        elif not client.validateCpf(cpf):
             return 'CPF inválido!', 403
         else:
             sql = f"""
@@ -49,9 +48,10 @@ class ClientRoute(Resource):
 
                 return 'Cliente registrado com sucesso!', 200
             except Exception as err:
-                return err, 500
+                return str(err), 500
 
     def put(self):
+        client = Client()
         id = request.args.get('id')
         if id == None or id == '':
             return 'Parâmetro não foi passado!', 403
@@ -62,11 +62,11 @@ class ClientRoute(Resource):
         surname = data['surname']
         cpf = data['cpf']
 
-        if not self.client.validateName(name):
+        if not client.validateName(name):
             return 'Nome é muito longo', 403
-        elif not self.client.validateSurname(surname):
+        elif not client.validateSurname(surname):
             return 'Sobrenome é muito longo', 403
-        elif not self.client.validateCpf(cpf):
+        elif not client.validateCpf(cpf):
             return 'CPF inválido!', 403
 
         sql = f"""
@@ -119,4 +119,11 @@ class Client:
             cursor.execute(sql)
             user = cursor.fetchone()
             db.conn.commit()
-        return user
+
+        dictClient = {
+            'id': user[0],
+            'cpf': user[1],
+            'name': user[2],
+            'surname': user[3]
+        }
+        return dictClient

@@ -14,4 +14,5 @@ class Server:
     def run(self):
         self.app.run(debug=True)
 
+
 server = Server()
