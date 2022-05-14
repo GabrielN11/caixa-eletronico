@@ -4,6 +4,7 @@ from datetime import datetime
 from src.server.instance import server
 from src.lib.mysql import mysql
 from src.controllers.account import Account
+from src.lib.authorization import clientAuthorization
 
 
 app, api = server.app, server.api
@@ -11,13 +12,14 @@ app, api = server.app, server.api
 @api.route('/transfer')
 class TransferRoute(Resource):
 
+    @clientAuthorization
     def post(self):
         account = Account()
         transfer = Transfer()
         data = api.payload
 
         receiver = data['receiver']
-        sender = data['sender']
+        sender = data['id']
         value = float(data['value'])
 
         if not account.validateNumber(receiver):

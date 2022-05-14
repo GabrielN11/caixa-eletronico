@@ -1,12 +1,14 @@
 from flask_restx import Resource
-from datetime import datetime
+from datetime import datetime, timedelta
 import bcrypt
 import cryptography
+import jwt
 
 from src.server.instance import server
 from src.lib.mysql import mysql
 from src.controllers.account import Account
 from src.controllers.client import Client
+from variables import secretkey
 
 
 app, api = server.app, server.api
@@ -46,8 +48,12 @@ class LoginRoute(Resource):
             if bcrypt.checkpw(password.encode('utf-8'), hashedPassword):
                 account_data = login.selectAccountByNumber(number)
                 client_data = client.selectClient(account_data['client_id'])
+
+                token = jwt.encode({"id": account_data['id'], 'exp': datetime.utcnow() + timedelta(minutes=5)}, secretkey, algorithm="HS256")
+                account_data['token'] = token
+
                 account_data['client'] = client_data
-                account.updateLastAccess(number)
+                login.updateLastAccess(number)
                 return account_data, 200
             else:
                 return 'Autenticação inválida!', 403
@@ -72,3 +78,13 @@ class Login:
             'number': account[4]
         }
         return dictAccount
+
+    def updateLastAccess(self, number):
+        dt = datetime.now()
+        sql = f"""
+            UPDATE conta_bancaria SET ultimo_acesso = '{dt}' WHERE numero = '{number}';
+        """
+        with mysql as bd:
+            cursor = bd.conn.cursor()
+            cursor.execute(sql)
+            bd.conn.commit()

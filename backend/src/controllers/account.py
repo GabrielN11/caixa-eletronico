@@ -81,16 +81,6 @@ class Account:
             cursor.execute(sql)
             bd.conn.commit()
 
-    def updateLastAccess(self, number):
-        dt = datetime.now()
-        sql = f"""
-            UPDATE conta_bancaria SET ultimo_acesso = '{dt}' WHERE numero = '{number}';
-        """
-        with mysql as bd:
-            cursor = bd.conn.cursor()
-            cursor.execute(sql)
-            bd.conn.commit()
-
     def validatePassword(self, password):
         return len(password) >= 4
     

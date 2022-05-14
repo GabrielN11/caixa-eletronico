@@ -5,20 +5,26 @@ from datetime import datetime
 from src.server.instance import server
 from src.lib.mysql import mysql
 from src.controllers.account import Account
+from src.lib.authorization import clientAuthorization
 
 
 app, api = server.app, server.api
 
-@api.route('/deposit/<id>')
+
+@api.route('/deposit')
 class DepositRoute(Resource):
-    def post(self, id):
+    @clientAuthorization
+    def post(self):
         account = Account()
         deposit = Deposit()
-
+        
+        id = api.payload['id']
         value = float(api.payload['value'])
 
         if not account.validateValue(value):
             return 'Informe um valor válido.', 403
+        elif not account.validateId(id):
+            return 'Ocorreu um erro no depósito. Tente novamente', 403
 
         try:
             result = deposit.deposit(id, value)

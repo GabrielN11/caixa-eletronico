@@ -5,19 +5,26 @@ from datetime import datetime
 from src.server.instance import server
 from src.lib.mysql import mysql
 from src.controllers.account import Account
+from src.lib.authorization import clientAuthorization
 
 
 app, api = server.app, server.api
 
-@api.route('/withdraw/<id>')
+@api.route('/withdraw')
 class WithdrawRoute(Resource):
-    def post(self, id):
+
+    @clientAuthorization
+    def post(self):
         account = Account()
         withdraw = Withdraw()
+
+        id = api.payload['id']
         value = float(api.payload['value'])
 
         if not account.validateValue(value):
             return 'Informe um valor válido.', 403
+        elif not account.validateId(id):
+            return 'Ocorreu um erro no saque. Tente novamente', 403
 
         try:
             result = withdraw.withdraw(id, value)
