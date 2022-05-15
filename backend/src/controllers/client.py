@@ -4,11 +4,14 @@ from flask_restx import Resource
 from src.lib.mysql import mysql
 from src.server.instance import server
 
+from src.lib.authorization import adminAuthorization
+
 app, api = server.app, server.api
 
 @api.route('/client')
 class ClientRoute(Resource):
 
+    @adminAuthorization
     def get(self):
         client = Client()
         id = request.args.get('id')
@@ -19,7 +22,8 @@ class ClientRoute(Resource):
             return data, 200
         except Exception as err:
             return str(err), 500
-        
+
+    @adminAuthorization    
     def post(self):
         client = Client()
         data = api.payload
@@ -50,6 +54,7 @@ class ClientRoute(Resource):
             except Exception as err:
                 return str(err), 500
 
+    @adminAuthorization
     def put(self):
         client = Client()
         id = request.args.get('id')
@@ -82,6 +87,7 @@ class ClientRoute(Resource):
         except Exception as err:
             return err, 500
 
+    @adminAuthorization
     def delete(self):
         id = request.args.get('id')
 
@@ -99,6 +105,19 @@ class ClientRoute(Resource):
         except Exception as err:
             return err, 500
 
+@api.route('/client-list')
+class ClientListRoute(Resource):
+
+    @adminAuthorization
+    def get(self):
+        client = Client()
+        try:
+            users = client.selectAllClients()
+
+            return users, 200
+        except Exception as err:
+            return str(err), 500
+
 class Client:
     def validateName(self, name):
         return not len(name) > 45
@@ -111,7 +130,7 @@ class Client:
 
     def selectClient(self, id):
         sql = f"""
-            SELECT * FROM cliente WHERE id = {id}; 
+            SELECT id, cpf, nome, sobrenome FROM cliente WHERE id = {id}; 
         """
         with mysql as db:
             cursor = db.conn.cursor()
@@ -127,3 +146,23 @@ class Client:
             'surname': user[3]
         }
         return dictClient
+    
+    def selectAllClients(self):
+        sql = f"""
+            SELECT id, cpf, nome, sobrenome FROM cliente;
+        """
+
+        with mysql as db:
+            cursor = db.conn.cursor()
+            cursor.execute(sql)
+            userList = cursor.fetchall()
+            db.conn.commit()
+
+        dictList = list(map(lambda user: {
+            'id': user[0],
+            'cpf': user[1],
+            'name': user[2],
+            'surname': user[3]
+        }, userList))
+
+        return dictList

@@ -7,6 +7,7 @@ from datetime import datetime
 from src.server.instance import server
 from src.lib.mysql import mysql
 from src.controllers.client import Client
+from src.lib.authorization import adminAuthorization
 
 
 app, api = server.app, server.api
@@ -14,6 +15,7 @@ app, api = server.app, server.api
 @api.route('/account')
 class AccountRoute(Resource):
 
+    @adminAuthorization
     def get(self):
         account = Account()
         client = Client()
@@ -28,6 +30,7 @@ class AccountRoute(Resource):
         except Exception as err:
             return str(err), 500
 
+    @adminAuthorization
     def post(self):
         account = Account()
         data = api.payload
@@ -45,6 +48,19 @@ class AccountRoute(Resource):
         try:
             account.insertAccount(hashed, client, balance, number)
             return 'Conta bancária criada!', 200
+        except Exception as err:
+            return str(err), 500
+
+@api.route('/account-list')
+class AccountListRoute(Resource):
+    
+    @adminAuthorization
+    def get(self):
+        account = Account()
+        try:
+            accounts = account.selectAllAccounts()
+
+            return accounts, 200
         except Exception as err:
             return str(err), 500
 
@@ -80,6 +96,26 @@ class Account:
             cursor = bd.conn.cursor()
             cursor.execute(sql)
             bd.conn.commit()
+
+    def selectAllAccounts(self):
+        sql = """
+                SELECT id, cliente_id, saldo, ultimo_acesso, numero FROM conta_bancaria;
+            """
+        with mysql as db:
+            cursor = db.conn.cursor()
+            cursor.execute(sql)
+            accountList = cursor.fetchall()
+            db.conn.commit()
+
+        dictList = list(map(lambda account: {
+            'id': account[0],
+            'client_id': account[1],
+            'saldo': account[2],
+            'ultimo_acesso': account[3],
+            'numero': account[4]
+        }, accountList))
+
+        return dictList
 
     def validatePassword(self, password):
         return len(password) >= 4
