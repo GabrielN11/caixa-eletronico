@@ -1,0 +1,18 @@
+<main>
+    <h3 class="toptitle">Caixa Eletrônico 24h <i class="fa-solid fa-moon"></i></h3>
+    <div class="container">
+        <h2 class="welcome">Bem-vindo ao</h2>
+        <h1 class="welcome">Banco Dev</h1>
+        <app-lg-input class="stretch" label="Digite o número de sua conta abaixo:" placeholder="********" 
+        (input)="changeAccountNumber($event)"></app-lg-input>
+        <app-lg-input class="stretch slide" *ngIf="step === 2" label="Digite a senha de sua conta:" placeholder="********" 
+        (input)="changePassword($event)" type="password"></app-lg-input>
+        <app-lg-button style="align-self: stretch;" [text]="step === 1 ? 'Prosseguir' : 'Acessar'"
+        (state)="stepForwards()"></app-lg-button>
+        <ul>
+            <li><i class="fa-solid fa-hand-holding-dollar"></i> Saques</li>
+            <li><i class="fa-solid fa-sack-dollar"></i> Depósitos</li>
+            <li><i class="fa-solid fa-money-bill-transfer"></i> Transferências</li>
+        </ul>
+    </div>
+</main>
