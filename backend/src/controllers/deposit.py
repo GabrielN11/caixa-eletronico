@@ -5,6 +5,7 @@ from datetime import datetime
 from src.server.instance import server
 from src.lib.mysql import mysql
 from src.controllers.account import Account
+from src.controllers.atm import ATM
 from src.lib.authorization import clientAuthorization
 
 
@@ -13,6 +14,8 @@ app, api = server.app, server.api
 
 @api.route('/deposit')
 class DepositRoute(Resource):
+
+
     @clientAuthorization
     def post(self):
         account = Account()
@@ -20,14 +23,14 @@ class DepositRoute(Resource):
         
         id = api.payload['id']
         value = float(api.payload['value'])
+        money = api.payload['money'][0]
 
         if not account.validateValue(value):
             return 'Informe um valor válido.', 403
         elif not account.validateId(id):
             return 'Ocorreu um erro no depósito. Tente novamente', 403
-
         try:
-            result = deposit.deposit(id, value)
+            result = deposit.deposit(id, value, money)
             if result == True:
                 return f'O depósito de R${value:.2f} foi efetuado com sucesso.'
             else:
@@ -37,7 +40,11 @@ class DepositRoute(Resource):
 
 
 class Deposit:
-    def deposit(self, id, value):
+
+    def __init__(self):
+        self.atm = ATM()
+
+    def deposit(self, id, value, money):
         sqlSelect = f"""
             SELECT saldo FROM conta_bancaria WHERE id = {id};
         """
@@ -67,5 +74,7 @@ class Deposit:
             cursor.execute(sqlInsert)
 
             bd.conn.commit()
+
+        self.atm.depositNotes(money)
 
         return True

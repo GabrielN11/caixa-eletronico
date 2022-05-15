@@ -5,6 +5,7 @@ from datetime import datetime
 from src.server.instance import server
 from src.lib.mysql import mysql
 from src.controllers.account import Account
+from src.controllers.atm import ATM
 from src.lib.authorization import clientAuthorization
 
 
@@ -17,6 +18,7 @@ class WithdrawRoute(Resource):
     def post(self):
         account = Account()
         withdraw = Withdraw()
+        atm = ATM()
 
         id = api.payload['id']
         value = float(api.payload['value'])
@@ -27,10 +29,11 @@ class WithdrawRoute(Resource):
             return 'Ocorreu um erro no saque. Tente novamente', 403
 
         try:
+            notes = atm.defineNotesByValue(value)
             result = withdraw.withdraw(id, value)
-
             if result == True:
-                return f'Saque de R${value:.2f} efetuado com sucesso. Aguarde a contagem das notas.', 200
+                atm.withdrawNotes(notes)
+                return notes, 200
             else:
                 return result, 403
         except Exception as err:
