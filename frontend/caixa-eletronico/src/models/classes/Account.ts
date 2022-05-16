@@ -1,5 +1,5 @@
 import { IAccount } from "../interfaces";
-import Client from "./client";
+import Client from "./Client";
 
 export default class Account implements IAccount{
 

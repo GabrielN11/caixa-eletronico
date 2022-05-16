@@ -1,0 +1,26 @@
+h1{
+    padding-top: 25px;
+    margin: 0;
+    margin-bottom: 25px;
+    color: #e9ecef;
+    font-weight: normal;
+    font-size: 2rem;
+}
+
+.balance{
+    font-size: 3.5rem;
+}
+
+.wrapper{
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.return-btn{
+    align-self: stretch;
+    margin: 0 25%;
+}

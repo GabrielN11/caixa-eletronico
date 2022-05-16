@@ -1,9 +1,9 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import Account from 'src/models/classes/account';
+import Account from 'src/models/classes/Account';
 import { environment } from 'src/environments/environment';
-import Client from 'src/models/classes/client';
+import Client from 'src/models/classes/Client';
 import { Router } from '@angular/router';
 import { ClientService } from './client.service';
 import { WarningService } from './warning.service';
@@ -26,7 +26,7 @@ export class AccountService {
       this.account = new Account(account.id, account.client_id, account.balance, account.last_access, account.number,
         account.token, client)
       this.clientService.setClient(client);
-      this.warningService.displayWarning('success', `Bem-vindo(a) ${client.name}!`, 3000);
+      this.warningService.displayWarning('success', `Bem-vindo(a) ${client.name}!`, 4000);
       this.loadingService.setFalse();
       this._router.navigateByUrl('/client');
     },
@@ -40,8 +40,13 @@ export class AccountService {
   getLogin(number: string, password: string): Observable<Account> {
     const headers = { 'content-type': 'application/json' };
     const body = JSON.stringify({ number, password })
-    const resp = this.http.post<Account>(environment.apiUrl + '/enter', body, { headers: headers })
-    console.log(resp)
-    return resp
+    return this.http.post<Account>(environment.apiUrl + '/enter', body, { headers: headers })
+  }
+
+  logout():void{
+    this.account = undefined;
+    this.clientService.setClient(undefined);
+    this.warningService.displayWarning('success', 'Obrigado por utilizar nossos serviços, volte sempre!', 4500);
+    this._router.navigateByUrl('/');
   }
 }

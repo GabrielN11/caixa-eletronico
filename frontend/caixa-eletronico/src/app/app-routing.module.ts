@@ -1,16 +1,27 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+
 import { MainComponent } from './pages/main/main.component';
 import { PanelComponent } from './pages/panel/panel.component';
+import { TransactionsComponent } from './pages/transactions/transactions.component';
+import { BalanceComponent } from './pages/balance/balance.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: MainComponent,
+    component: MainComponent
   },
   {
     path: 'client',
-    component: PanelComponent,
+    component: PanelComponent
+  },
+  {
+    path: 'transactions',
+    component: TransactionsComponent
+  },
+  {
+    path: 'balance',
+    component: BalanceComponent
   }
 ];
 

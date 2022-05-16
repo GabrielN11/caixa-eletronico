@@ -22,6 +22,7 @@
     text-decoration: none;
     padding: 35px 25px;
     text-align: center;
+    cursor: pointer;
 }
 
 .bg-exit{

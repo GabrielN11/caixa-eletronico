@@ -12,14 +12,13 @@ def clientAuthorization(f):
     @wraps(f)
     def decorated(*args, **kwargs):
         token = request.args.get('token')
+        id = request.args.get('id')
         if not token or token == "":
             return 'Não autorizado.', 403
 
         try:
             data = jwt.decode(token, secretkey, algorithms="HS256")  
-            id = api.payload['id']
-
-            if data['id'] != id:
+            if str(data['id']) != id:
                 return 'Não autorizado', 403  
         except Exception as err:
             return str(err), 403

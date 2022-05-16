@@ -10,6 +10,8 @@ import { LgButtonComponent } from './components/lg-button/lg-button.component';
 import { PanelComponent } from './pages/panel/panel.component';
 import { WarningComponent } from './components/warning/warning.component';
 import { LoadingComponent } from './components/loading/loading.component';
+import { TransactionsComponent } from './pages/transactions/transactions.component';
+import { BalanceComponent } from './pages/balance/balance.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,9 @@ import { LoadingComponent } from './components/loading/loading.component';
     LgButtonComponent,
     PanelComponent,
     WarningComponent,
-    LoadingComponent
+    LoadingComponent,
+    TransactionsComponent,
+    BalanceComponent
   ],
   imports: [
     BrowserModule,

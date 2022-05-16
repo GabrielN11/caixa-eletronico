@@ -19,4 +19,8 @@ export class PanelComponent implements OnInit {
 
   }
 
+  finish():void{
+    this.accountService.logout();
+  }
+
 }

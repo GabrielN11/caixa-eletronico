@@ -1,20 +1,20 @@
 <div class="menu">
     <div class="option">
-        <a href="/" class="menu-btn align-start">Sacar</a>
+        <a routerLink="/" class="menu-btn align-start">Sacar</a>
     </div>
     <div class="option">
-        <a href="/" class="menu-btn align-end">Depositar</a>
+        <a routerLink="/" class="menu-btn align-end">Depositar</a>
     </div>
     <div class="option">
-        <a href="/" class="menu-btn align-start">Ver Saldo</a>
+        <a routerLink="/balance" class="menu-btn align-start">Ver Saldo</a>
     </div>
     <div class="option">
-        <a href="/" class="menu-btn align-end">Histórico de Transações</a>
+        <a routerLink="/transactions" class="menu-btn align-end">Histórico de Transações</a>
     </div>
     <div class="option">
-        <a href="/" class="menu-btn align-start">Transferir</a>
+        <a routerLink="/" class="menu-btn align-start">Transferir</a>
     </div>
     <div class="option">
-        <a href="/" class="menu-btn align-end bg-exit">Finalizar</a>
+        <span class="menu-btn align-end bg-exit" (click)="finish()">Finalizar</span>
     </div>
 </div>

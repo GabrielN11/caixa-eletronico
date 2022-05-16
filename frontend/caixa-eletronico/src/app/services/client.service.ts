@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, Subject, Subscription } from 'rxjs';
 import { Injectable } from '@angular/core';
-import Client from 'src/models/classes/client';
+import Client from 'src/models/classes/Client';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +15,7 @@ export class ClientService {
 
   }
 
-  setClient(client: Client):void{
+  setClient(client: Client | undefined):void{
     this.client = client;
     this.subject.next(client)
   }

@@ -1,4 +1,4 @@
-import Client from "./classes/client"
+import Client from "./classes/Client"
 
 export interface IAccount{
     id: number,
@@ -22,4 +22,10 @@ export interface IWarning{
     text: string,
     mode: string,
     timer: number
+}
+
+export interface ITransaction{
+    value: number,
+    type: string,
+    date: string
 }
