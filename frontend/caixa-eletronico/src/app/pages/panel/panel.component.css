@@ -1,0 +1,47 @@
+.menu{
+    width: 100vw;
+    display: flex;
+    flex-wrap: wrap;
+    color: #fff;
+    padding-bottom: 40px;
+}
+
+.option{
+    margin-top: 70px;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+}
+
+.menu-btn{
+    width: 80%;
+    background-color: #fff;
+    color: #051f62;
+    font-weight: bold;
+    font-size: 2rem;
+    text-decoration: none;
+    padding: 35px 25px;
+    text-align: center;
+}
+
+.bg-exit{
+    background-color: #dc3545;
+    color: #fff;
+}
+
+.align-start{
+    border-top-right-radius: 25px;
+    border-bottom-right-radius: 25px;
+}
+
+.align-end{
+    align-self: flex-end;
+    border-top-left-radius: 25px;
+    border-bottom-left-radius: 25px;
+}
+
+@media(max-width: 600px){
+    .option{
+        width: 100%;
+    }
+}

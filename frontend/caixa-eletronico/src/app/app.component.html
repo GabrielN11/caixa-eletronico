@@ -1,1 +1,9 @@
-<router-outlet></router-outlet>
+<main>
+    <header *ngIf="client">
+        <p><i class="fa-solid fa-user"></i> {{client && client.getFullName()}}</p>
+        <p><i class="fa-solid fa-building-columns"></i> Banco Dev</p>
+    </header>
+    <router-outlet></router-outlet>
+    <app-warning></app-warning>
+    <app-loading></app-loading>
+</main>

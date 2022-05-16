@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { LgInputComponent } from './lg-input.component';
+import { WarningComponent } from './warning.component';
 
-describe('LgInputComponent', () => {
-  let component: LgInputComponent;
-  let fixture: ComponentFixture<LgInputComponent>;
+describe('WarningComponent', () => {
+  let component: WarningComponent;
+  let fixture: ComponentFixture<WarningComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LgInputComponent ]
+      declarations: [ WarningComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(LgInputComponent);
+    fixture = TestBed.createComponent(WarningComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

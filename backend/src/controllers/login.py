@@ -25,6 +25,7 @@ class LoginRoute(Resource):
         number = data['number']
         password = data['password']
 
+        print(data)
         if not account.validateNumber(number):
             return 'Número de conta inválido.', 403
         elif not account.validatePassword(password):

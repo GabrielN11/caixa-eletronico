@@ -1,0 +1,5 @@
+<div class="wrapper">
+    <div class="warning" *ngIf="warning.active" [style.backgroundColor]="warning.mode === 'danger' ? '#dc3545' : '#479f76'">
+        <p>{{warning.text}}</p>
+    </div>    
+</div>
