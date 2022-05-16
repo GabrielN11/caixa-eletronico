@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AccountService } from 'src/app/services/account.service';
-import { TransferService } from 'src/app/services/transfer.service';
+import { OperationService } from 'src/app/services/operation.service';
 import { WarningService } from 'src/app/services/warning.service';
 
 @Component({
@@ -14,7 +14,7 @@ export class TransferComponent implements OnInit {
   number: string = '';
   value: any = '';
 
-  constructor(private transferService: TransferService, private warningService: WarningService,
+  constructor(private operationService: OperationService, private warningService: WarningService,
     private _router:Router, private accountService: AccountService) {
     if(!accountService.account)
       this._router.navigateByUrl('/')  
@@ -27,7 +27,7 @@ export class TransferComponent implements OnInit {
     if(this.number !== '' && this.value !== ''){
       if(!isNaN(parseFloat(this.value))){
         this.value = parseFloat(this.value);
-        this.transferService.transfer(this.number, this.value);
+        this.operationService.transfer(this.number, this.value);
       }else{
         this.warningService.displayWarning('danger', 'Valor a ser transferido precisa ser um número!', 6000);
       }

@@ -6,6 +6,7 @@ import { PanelComponent } from './pages/panel/panel.component';
 import { TransactionsComponent } from './pages/transactions/transactions.component';
 import { BalanceComponent } from './pages/balance/balance.component';
 import { TransferComponent } from './pages/transfer/transfer.component';
+import { DepositComponent } from './pages/deposit/deposit.component';
 
 const routes: Routes = [
   {
@@ -27,6 +28,10 @@ const routes: Routes = [
   {
     path: 'transfer',
     component: TransferComponent
+  },
+  {
+    path: 'deposit',
+    component: DepositComponent
   }
 ];
 

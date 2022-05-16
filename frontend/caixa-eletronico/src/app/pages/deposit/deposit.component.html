@@ -1,0 +1,15 @@
+<div class="wrapper">
+    <div class="note-container">
+        <h1><i class="fa-solid fa-hand-pointer"></i> Clique nas notas que deseja depositar.</h1>
+        <span *ngFor="let note of notes" class="note-btn" (click)="addNote(note)">
+            <img [src]="note.concatPath('../../../assets')">
+        </span>
+    </div> 
+    <div class="value-container">
+        <h1>Quantidade inserida:</h1>
+        <h1 class="value">{{value.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })}}</h1>
+        <app-lg-button (state)="handleSubmit()" text="Depositar"></app-lg-button>
+        <app-lg-button (state)="clear()" text="Resetar"></app-lg-button>
+        <a routerLink="/client"><app-lg-button mode="danger" text="Cancelar"></app-lg-button></a>
+    </div>
+</div>
