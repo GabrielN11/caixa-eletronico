@@ -8,6 +8,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 export class LgButtonComponent implements OnInit {
 
   @Input() text: string = 'Clique';
+  @Input() mode: string = 'primary';
   @Output() state: EventEmitter<any> = new EventEmitter()
 
   constructor() { }

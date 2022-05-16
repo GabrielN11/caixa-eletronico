@@ -1,0 +1,15 @@
+<div class="wrapper">
+    <h1><i class="fa-solid fa-money-bill-transfer"></i> Transferência</h1>
+    <form (submit)="handleSubmit()">
+        <label>
+            Digite o número da conta do destinatário:
+            <input placeholder="Número da conta do destinatário aqui..." [(ngModel)]="number" name="number">
+        </label>
+        <label>
+            Digite a quantidade a ser transferida:
+            <input placeholder="Exemplo: 250.00" [(ngModel)]="value" name="value">
+        </label>
+        <app-lg-button text="Toque para transferir"></app-lg-button>    
+    </form>
+    <a routerLink="/client"><app-lg-button mode="danger" text="Toque para cancelar"></app-lg-button></a>
+</div>

@@ -1,4 +1,3 @@
-from ast import With
 from flask_restx import Resource
 from datetime import datetime
 
@@ -33,7 +32,11 @@ class WithdrawRoute(Resource):
             result = withdraw.withdraw(id, value)
             if result == True:
                 atm.withdrawNotes(notes)
-                return notes, 200
+                updatedAccount = account.selectAccount(id)
+                return {
+                    "notes": notes,
+                    "account": updatedAccount
+                }, 200
             else:
                 return result, 403
         except Exception as err:

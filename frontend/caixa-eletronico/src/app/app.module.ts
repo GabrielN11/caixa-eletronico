@@ -12,6 +12,7 @@ import { WarningComponent } from './components/warning/warning.component';
 import { LoadingComponent } from './components/loading/loading.component';
 import { TransactionsComponent } from './pages/transactions/transactions.component';
 import { BalanceComponent } from './pages/balance/balance.component';
+import { TransferComponent } from './pages/transfer/transfer.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { BalanceComponent } from './pages/balance/balance.component';
     WarningComponent,
     LoadingComponent,
     TransactionsComponent,
-    BalanceComponent
+    BalanceComponent,
+    TransferComponent
   ],
   imports: [
     BrowserModule,

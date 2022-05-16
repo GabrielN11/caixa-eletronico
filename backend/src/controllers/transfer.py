@@ -32,7 +32,11 @@ class TransferRoute(Resource):
         try:
             result = transfer.transfer(sender, receiver, value)
             if result == True:
-                return f'Transferência de R${value:.2f} efetuada com sucesso!', 200
+                updatedAccount = account.selectAccount(sender)
+                return {
+                    "account": updatedAccount,
+                    "message": f'Transferência de R${value:.2f} efetuada com sucesso!'
+                }, 200
             else:
                 return result, 403
         except Exception as err:

@@ -32,7 +32,11 @@ class DepositRoute(Resource):
         try:
             result = deposit.deposit(id, value, money)
             if result == True:
-                return f'O depósito de R${value:.2f} foi efetuado com sucesso.'
+                updatedAccount = account.selectAccount(id)
+                return {
+                    "account": updatedAccount,
+                    "message": f'O depósito de R${value:.2f} foi efetuado com sucesso.'
+                }
             else:
                 return result, 403
         except Exception as err:

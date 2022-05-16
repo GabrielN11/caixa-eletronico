@@ -1,1 +1,3 @@
-<button (click)="handleClick()">{{text}}</button>
+<button (click)="handleClick()" [style.backgroundColor]="mode === 'primary' ? '#0d6efd' : '#dc3545'">
+    {{text}}
+</button>
