@@ -23,7 +23,7 @@ class DepositRoute(Resource):
         
         id = api.payload['id']
         value = float(api.payload['value'])
-        money = api.payload['money'][0]
+        money = api.payload['money']
 
         if not account.validateValue(value):
             return 'Informe um valor válido.', 403
