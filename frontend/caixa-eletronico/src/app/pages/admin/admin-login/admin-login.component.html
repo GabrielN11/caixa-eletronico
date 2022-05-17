@@ -1,0 +1,18 @@
+<div class="wrapper">
+    <h3 class="toptitle">Caixa Eletrônico 24h <i class="fa-solid fa-moon"></i></h3>
+    <form class="container" (submit)="handleSubmit()">
+        <h2 class="welcome">Painel de administrador</h2>
+        <label>
+            Digite o nome de usuário:
+            <input placeholder="Nome de usuário..." type="text" name='accountNumber' id="accountNumber" 
+            [(ngModel)]="username">
+        </label>
+        <label>
+            Digite a senha:
+            <input placeholder="****" type="password" name='accountPassword' id="accountPassword"
+            [(ngModel)]="password">
+        </label>
+        <app-lg-button style="align-self: stretch;" text="Acessar">
+        </app-lg-button>
+    </form>
+</div>

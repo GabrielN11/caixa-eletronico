@@ -2,7 +2,7 @@ from flask_restx import Resource
 
 from src.server.instance import server
 from src.lib.mysql import mysql
-from src.lib.authorization import clientAuthorization
+from src.lib.authorization import adminAuthorization
 from variables import atmId
 
 
@@ -11,12 +11,28 @@ app, api = server.app, server.api
 @api.route('/atm')
 class ATMRoute(Resource):
 
-    @clientAuthorization
+    @adminAuthorization
     def get(self):
         atm = ATM()
         try:
             notes = atm.selectNotes()
             return notes, 200
+        except Exception as err:
+            return str(err), 500
+
+    @adminAuthorization
+    def post(self):
+        atm = ATM()
+        data = api.payload
+
+        notes = data['notes']
+
+        if not notes:
+            return 'Notas não foram informadas!', 403
+
+        try:
+            atm.depositNotes(notes)
+            return 'Notas depositadas com sucesso!', 200
         except Exception as err:
             return str(err), 500
         

@@ -20,7 +20,8 @@ export class TransactionService {
 
   getTransactions():void{
     this.loadingService.setTrue();
-    this.get().subscribe(transactions => {
+    this.get().subscribe((transactions: any[]) => {
+      transactions.reverse()
       this.subject.next(transactions);
       this.loadingService.setFalse();
     }, err => {

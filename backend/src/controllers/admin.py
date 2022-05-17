@@ -95,7 +95,7 @@ class Admin:
             db.conn.commit()
         dictAccount = {
             'id': account[0],
-            'user': account[1],
+            'username': account[1],
             'name': account[2],
             'surname': account[3],
         }

@@ -46,8 +46,12 @@ export class OperationService {
       this.loadingService.setFalse();
       this._router.navigateByUrl('/client')
     }, err => {
-      this.warningService.displayWarning('danger', err.error, 5000);
       this.loadingService.setFalse();
+      if(err.error === 'Não autorizado.'){
+        this.accountService.logout()
+      }else{
+        this.warningService.displayWarning('danger', err.error, 5000);
+      }
     });
   }
 

@@ -36,3 +36,11 @@ export interface INote{
     name: string,
     quantity: number
 }
+
+export interface IAdmin{
+    id: number,
+    name: string,
+    surname: string,
+    username: string,
+    token: string
+}

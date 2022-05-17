@@ -85,7 +85,7 @@ class ClientRoute(Resource):
                 db.conn.commit()
             return 'Dados do cliente alterados com sucesso!', 200
         except Exception as err:
-            return err, 500
+            return str(err), 500
 
     @adminAuthorization
     def delete(self):
@@ -103,7 +103,7 @@ class ClientRoute(Resource):
 
             return 'Conta do cliente foi encerrada.', 200
         except Exception as err:
-            return err, 500
+            return str(err), 500
 
 @api.route('/client-list')
 class ClientListRoute(Resource):
