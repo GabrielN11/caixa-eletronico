@@ -7,9 +7,11 @@
         </label>
         <label>
             Digite a quantidade a ser transferida:
-            <input placeholder="Exemplo: 250.00" [(ngModel)]="value" name="value">
+            <input type='number' placeholder="Exemplo: 250.00" [(ngModel)]="value" name="value">
         </label>
-        <app-lg-button text="Toque para transferir"></app-lg-button>    
+        <app-lg-button class="btn" 
+        [text]="value ? 'Toque para transferir ' + value.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' }) : 'Toque para transferir R$ 0,00'">
+    </app-lg-button>    
     </form>
     <a routerLink="/client"><app-lg-button mode="danger" text="Toque para cancelar"></app-lg-button></a>
 </div>

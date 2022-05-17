@@ -60,7 +60,9 @@ class Withdraw:
             currentBalance = cursor.fetchone()
             if currentBalance == None:
                 return 'Conta bancaria não encontrada. Tente novamente.'
-            
+            elif currentBalance[0] < value:
+                return 'Saldo insuficiente.'
+                
             currentBalance = float(currentBalance[0])
 
             sqlUpdate = f"""

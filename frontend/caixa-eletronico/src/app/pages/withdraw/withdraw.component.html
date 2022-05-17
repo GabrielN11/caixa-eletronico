@@ -1,0 +1,30 @@
+<div class="wrapper">
+    <form *ngIf="!finished && !drawing" (submit)="handleSubmit()">
+        <h1><i class="fa-solid fa-hand-holding-dollar"></i> Saque</h1>
+        <label>
+            Digite a quantidade que deseja sacar abaixo:
+            <input type="number" name="value" placeholder="Exemplo: 55.50" min="0.01" step="0.01" [(ngModel)]="value" required>
+        </label>
+        <app-lg-button class="btn"
+        [text]="value ? 'Sacar ' + value.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' }) : 'Sacar R$ 0,00'">
+    </app-lg-button>
+    </form>
+    
+    <a *ngIf="!finished && !drawing" routerLink="/client"><app-lg-button mode="danger" text="Toque para voltar"></app-lg-button></a>
+
+    <h1 class="drawing" *ngIf="drawing"><i class="fa-solid fa-fax"></i></h1>
+    <h1 *ngIf="drawing">Contando notas, aguarde...</h1>
+
+    <div *ngIf="finished" class="finished-container">
+        <h1>Recolha seu dinheiro!</h1>
+        <div class="note-container">
+            <span *ngFor="let note of notes" class="note">
+                <img *ngIf="note.quantity > 0" [src]="note.concatPath('../../../assets')">
+                <span *ngIf="note.quantity > 0">Quantidade: {{note.quantity}}</span>
+            </span>
+        </div>
+        <h1>Total: {{value.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })}}</h1>
+        <app-lg-button (state)="logout()" mode="danger" text="Finalizar"></app-lg-button>
+        <a routerLink="/client"><app-lg-button text="Toque para voltar"></app-lg-button></a>
+    </div>
+</div>

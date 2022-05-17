@@ -50,7 +50,7 @@ class LoginRoute(Resource):
                 account_data = login.selectAccountByNumber(number)
                 client_data = client.selectClient(account_data['client_id'])
 
-                token = jwt.encode({"id": account_data['id'], 'exp': datetime.utcnow() + timedelta(minutes=5)}, secretkey, algorithm="HS256")
+                token = jwt.encode({"id": account_data['id'], 'exp': datetime.utcnow() + timedelta(minutes=10)}, secretkey, algorithm="HS256")
                 account_data['token'] = token
 
                 account_data['client'] = client_data

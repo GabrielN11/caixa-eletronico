@@ -12,6 +12,10 @@
     margin: 0 25%;
 }
 
+.btn{
+    width:100%;
+}
+
 h1{
     padding-top: 25px;
     margin: 0;

@@ -99,8 +99,7 @@ class ATM:
         if value == 0:
             return withdraw_notes
         else:
-            print(value)
-            return False
+            raise Exception("O caixa não possui notas para sacar o valor solicitado.")
 
     def withdrawNotes(self, notes):
         currentNotes = self.selectNotes()

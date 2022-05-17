@@ -21,7 +21,7 @@ def clientAuthorization(f):
             if str(data['id']) != id:
                 return 'Não autorizado', 403  
         except Exception as err:
-            return str(err), 403
+            return 'Não autorizado.', 403
 
         return f(*args, **kwargs)
 

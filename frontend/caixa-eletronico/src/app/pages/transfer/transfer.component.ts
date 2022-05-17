@@ -12,7 +12,7 @@ import { WarningService } from 'src/app/services/warning.service';
 export class TransferComponent implements OnInit {
 
   number: string = '';
-  value: any = '';
+  value: number = 0;
 
   constructor(private operationService: OperationService, private warningService: WarningService,
     private _router:Router, private accountService: AccountService) {
@@ -24,9 +24,8 @@ export class TransferComponent implements OnInit {
   }
 
   handleSubmit():void{
-    if(this.number !== '' && this.value !== ''){
-      if(!isNaN(parseFloat(this.value))){
-        this.value = parseFloat(this.value);
+    if(this.number !== '' && this.value > 0){
+      if(!isNaN(this.value)){
         this.operationService.transfer(this.number, this.value);
       }else{
         this.warningService.displayWarning('danger', 'Valor a ser transferido precisa ser um número!', 6000);
