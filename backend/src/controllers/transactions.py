@@ -60,4 +60,15 @@ class Transaction:
 
         return transactionDictList
 
+    def deleteTransactions(self, id):
+        sql = f"""
+            DELETE FROM transacao WHERE conta_bancaria_id = {id};
+        """
+
+        with mysql as bd:
+            cursor = bd.conn.cursor()
+
+            cursor.execute(sql)
+            bd.conn.commit()
+
         
