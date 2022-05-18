@@ -202,13 +202,16 @@ class Account:
             db.conn.commit()
 
         def formatList(account):
-            newdate = account[3].split('.', 1)[0]
-            date = newdate.split(' ', 1)[0]
-            time = newdate.split(' ', 1)[1]
-            dateInfo = date.split('-')
-            date = f'{dateInfo[2]}/{dateInfo[1]}/{dateInfo[0]}'
+            if(account[3] == None):
+                formattedDate = 'Nunca entrou.'
+            else:
+                newdate = account[3].split('.', 1)[0]
+                date = newdate.split(' ', 1)[0]
+                time = newdate.split(' ', 1)[1]
+                dateInfo = date.split('-')
+                date = f'{dateInfo[2]}/{dateInfo[1]}/{dateInfo[0]}'
 
-            formattedDate = f'{date} às {time}'
+                formattedDate = f'{date} às {time}'
 
             accountDict = {
             'client_id': account[1],
