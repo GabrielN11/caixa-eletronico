@@ -97,6 +97,27 @@ class Account:
             cursor.execute(sql)
             bd.conn.commit()
 
+    def selectAccountsByClientId(id):
+        sql = f"""
+                SELECT id, cliente_id, saldo, ultimo_acesso, numero FROM conta_bancaria WHERE cliente_id = {id};
+            """
+
+        with mysql as db:
+            cursor = db.conn.cursor()
+            cursor.execute(sql)
+            accountList = cursor.fetchall()
+            db.conn.commit()
+
+        dictList = list(map(lambda account: {
+            'id': account[0],
+            'client_id': account[1],
+            'saldo': account[2],
+            'ultimo_acesso': account[3],
+            'numero': account[4]
+        }, accountList))
+
+        return dictList
+
     def selectAllAccounts(self):
         sql = """
                 SELECT id, cliente_id, saldo, ultimo_acesso, numero FROM conta_bancaria;

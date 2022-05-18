@@ -14,7 +14,7 @@ class ClientRoute(Resource):
     @adminAuthorization
     def get(self):
         client = Client()
-        id = request.args.get('id')
+        id = request.args.get('client_id')
         if id == None or id == '':
             return 'Parâmetro não foi passado!', 403
         try:
@@ -57,7 +57,7 @@ class ClientRoute(Resource):
     @adminAuthorization
     def put(self):
         client = Client()
-        id = request.args.get('id')
+        id = request.args.get('client_id')
         if id == None or id == '':
             return 'Parâmetro não foi passado!', 403
 
@@ -89,15 +89,26 @@ class ClientRoute(Resource):
 
     @adminAuthorization
     def delete(self):
-        id = request.args.get('id')
+        id = request.args.get('client_id')
 
         sql = f"""
             DELETE FROM cliente WHERE id = {id}
         """
 
+        sqlSelectAccount = f"""
+            SELECT id FROM conta_bancaria WHERE cliente_id = {id};
+        """
+
         try:
             with mysql as db:
                 cursor = db.conn.cursor()
+
+                cursor.execute(sqlSelectAccount)
+                account_id = cursor.fetchone()
+                if account_id != None:
+                    db.conn.commit()
+                    return 'Cliente possui uma conta bancária!', 403
+
                 cursor.execute(sql)
                 db.conn.commit()
 
@@ -140,10 +151,10 @@ class Client:
             db.conn.commit()
 
         dictClient = {
-            'id': user[0],
             'cpf': user[1],
             'name': user[2],
-            'surname': user[3]
+            'surname': user[3],
+            'id': user[0]
         }
         return dictClient
     
@@ -159,10 +170,10 @@ class Client:
             db.conn.commit()
 
         dictList = list(map(lambda user: {
-            'id': user[0],
             'cpf': user[1],
             'name': user[2],
-            'surname': user[3]
+            'surname': user[3],
+            'id': user[0]
         }, userList))
 
         return dictList
