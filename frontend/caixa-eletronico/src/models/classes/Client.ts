@@ -2,16 +2,18 @@ import { IClient } from "../interfaces";
 
 export default class Client implements IClient{
 
-    id: number;
+    id?: number;
     cpf: string;
     name: string;
     surname: string;
     
-    constructor(id: number, cpf: string, name: string, surname: string){
-        this.id = id;
+    constructor(cpf: string, name: string, surname: string, id?: number){
         this.cpf = cpf;
         this.name = name;
         this.surname = surname;
+        if(id){
+            this.id = id;
+        }
     }
 
     getFullName(){

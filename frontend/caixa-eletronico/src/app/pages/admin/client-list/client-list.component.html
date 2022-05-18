@@ -1,0 +1,21 @@
+<div class="wrapper">
+    <h1><i class="fa-solid fa-users"></i> Lista de Clientes</h1>
+    <div class="list">
+        <table>
+            <tr>
+                <th>CPF</th>
+                <th>Nome</th>
+                <th>Opções</th>
+            </tr>
+            <tr *ngFor="let client of clients">
+                <th>{{client.cpf}}</th>
+                <th>{{client.name}} {{client.surname}}</th>
+                <th class="options">
+                    <i (click)="goToClient(client.id)" class="fa-solid fa-pencil"></i>
+                    <i (click)="handleDelete(client.id)" class="fa-solid fa-trash"></i>
+                </th>
+            </tr>
+        </table>
+    </div>
+    <a class="return-btn" routerLink="/admin/panel"><app-lg-button text="Toque para voltar"></app-lg-button></a>
+</div>

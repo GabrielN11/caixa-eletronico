@@ -17,6 +17,8 @@ import { DepositComponent } from './pages/deposit/deposit.component';
 import { WithdrawComponent } from './pages/withdraw/withdraw.component';
 import { AdminLoginComponent } from './pages/admin/admin-login/admin-login.component';
 import { AdminPanelComponent } from './pages/admin/admin-panel/admin-panel.component';
+import { ClientFormComponent } from './pages/admin/client-form/client-form.component';
+import { ClientListComponent } from './pages/admin/client-list/client-list.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,9 @@ import { AdminPanelComponent } from './pages/admin/admin-panel/admin-panel.compo
     DepositComponent,
     WithdrawComponent,
     AdminLoginComponent,
-    AdminPanelComponent
+    AdminPanelComponent,
+    ClientFormComponent,
+    ClientListComponent
   ],
   imports: [
     BrowserModule,

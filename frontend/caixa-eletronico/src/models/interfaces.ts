@@ -11,7 +11,7 @@ export interface IAccount{
 }
 
 export interface IClient{
-    id: number,
+    id?: number,
     cpf: string,
     name: string,
     surname: string

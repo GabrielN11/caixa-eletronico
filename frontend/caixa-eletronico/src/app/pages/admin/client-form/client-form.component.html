@@ -1,0 +1,18 @@
+<div class="wrapper">
+    <form class="container" (submit)="handleSubmit()">
+        <label>
+            Digite o nome do cliente:
+            <input placeholder="Nome..." type="text" name='name' id="name" [(ngModel)]="name">
+        </label>
+        <label>
+            Digite o sobrenome do cliente:
+            <input placeholder="Sobrenome..." type="text" name='surname' id="surname" [(ngModel)]="surname">
+        </label>
+        <label>
+            Digite o CPF do cliente:
+            <input placeholder="CPF..." type="text" name='cpf' id="cpf" [(ngModel)]="cpf">
+        </label>
+        <app-lg-button [text]="alter ? 'Atualizar Cliente' : 'Criar Cliente'"></app-lg-button>
+    </form>
+    <a routerLink="/admin/panel"><app-lg-button mode="danger" text="Cancelar"></app-lg-button></a>
+</div>

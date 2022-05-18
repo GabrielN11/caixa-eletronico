@@ -22,7 +22,7 @@ export class AccountService {
   login(number: string, password: string): void {
     this.loadingService.setTrue();
     const resp = this.getLogin(number, password).subscribe((account) => {
-      const client = new Client(account.client.id, account.client.cpf, account.client.name, account.client.surname);
+      const client = new Client(account.client.cpf, account.client.name, account.client.surname, account.client.id);
       this.account = new Account(account.id, account.client_id, account.balance, account.last_access, account.number,
         account.token, client)
       this.clientService.setClient(client);
