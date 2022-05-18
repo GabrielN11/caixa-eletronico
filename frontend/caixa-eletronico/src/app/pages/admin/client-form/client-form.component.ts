@@ -22,14 +22,14 @@ export class ClientFormComponent implements OnInit {
   constructor(private warningService: WarningService, private clientService: ClientService,
     private adminService: AdminService, private _router: Router, private atvRoute: ActivatedRoute,
     private loadingService: LoadingService) {
-      if(!adminService.admin){
-        _router.navigateByUrl('/admin')
-      }
+    if (!adminService.admin) {
+      _router.navigateByUrl('/admin')
     }
+  }
 
   ngOnInit(): void {
-    this.atvRoute.queryParamMap.subscribe(({params}: any) => {
-      if(params.id){
+    this.atvRoute.queryParamMap.subscribe(({ params }: any) => {
+      if (params.id) {
         this.alter = true;
         this.loadingService.setTrue();
         this.clientService.getClient(params['id']).subscribe(client => {
@@ -48,29 +48,27 @@ export class ClientFormComponent implements OnInit {
     })
   }
 
-  handleSubmit():void{
-    if(this.alter){
-      this.handleSubmitAlter();
-    }else{
-      this.handleSubmitCreate();
+  handleSubmit(): void {
+    if (this.name === '' || this.surname === '' || this.cpf === '') {
+      this.warningService.displayWarning('danger', 'Preencha todos os campos', 3000);
+    } else {
+      if (this.alter) {
+        this.handleSubmitAlter();
+      } else {
+        this.handleSubmitCreate();
+      }
     }
   }
 
-  handleSubmitCreate():void{
-    if(this.name === '' || this.surname === '' || this.cpf === ''){
-      this.warningService.displayWarning('danger', 'Preencha todos os campos', 3000);
-    }else{
-      const client: Client = new Client(this.cpf, this.name, this.surname);
-      this.clientService.createClient(client);
-    }
+  handleSubmitCreate(): void {
+    const client: Client = new Client(this.cpf, this.name, this.surname);
+    this.clientService.createClient(client);
+
   }
 
-  handleSubmitAlter():void{
-    if(this.name === '' || this.surname === '' || this.cpf === ''){
-      this.warningService.displayWarning('danger', 'Preencha todos os campos', 3000);
-    }else{
-      const client: Client = new Client(this.cpf, this.name, this.surname, this.id);
-      this.clientService.updateClient(client);
-    }
+  handleSubmitAlter(): void {
+    const client: Client = new Client(this.cpf, this.name, this.surname, this.id);
+    this.clientService.updateClient(client);
+
   }
 }

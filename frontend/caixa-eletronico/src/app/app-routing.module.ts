@@ -12,6 +12,8 @@ import { AdminLoginComponent } from './pages/admin/admin-login/admin-login.compo
 import { AdminPanelComponent } from './pages/admin/admin-panel/admin-panel.component';
 import { ClientFormComponent } from './pages/admin/client-form/client-form.component';
 import { ClientListComponent } from './pages/admin/client-list/client-list.component';
+import { AccountFormComponent } from './pages/admin/account-form/account-form.component';
+import { AccountListComponent } from './pages/admin/account-list/account-list.component';
 
 const routes: Routes = [
   {
@@ -57,6 +59,13 @@ const routes: Routes = [
   {
     path: 'admin/client-list',
     component: ClientListComponent
+  },
+  {
+    path: 'admin/account-form',
+    component: AccountFormComponent
+  },{
+    path: 'admin/account-list',
+    component: AccountListComponent
   }
 ];
 

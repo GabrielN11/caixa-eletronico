@@ -1,0 +1,22 @@
+<div class="wrapper">
+    <form class="container" (submit)="handleSubmit()">
+        <label>
+            Digite o número da conta:
+            <input placeholder="Número da conta..." type="text" name='number' id="number" [(ngModel)]="number">
+        </label>
+        <label>
+            Digite a senha da conta:
+            <input placeholder="Senha..." type="password" name='senha' id="senha" [(ngModel)]="password">
+        </label>
+        <label>
+            Selecione o dono da conta:
+            <select id="client" name="client" [ngModel]="clientId" (change)="onChange($event)">
+                <option *ngFor="let client of clients" [value]="client.id">
+                    {{client.cpf}} - {{client.name}} {{client.surname}}
+                </option>
+            </select>
+        </label>
+        <app-lg-button [text]="alter ? 'Atualizar Conta' : 'Criar Conta'"></app-lg-button>
+    </form>
+    <a routerLink="/admin/panel"><app-lg-button mode="danger" text="Cancelar"></app-lg-button></a>
+</div>

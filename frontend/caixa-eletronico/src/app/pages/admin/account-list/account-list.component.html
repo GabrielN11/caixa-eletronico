@@ -1,0 +1,25 @@
+<div class="wrapper">
+    <h1><i class="fa-solid fa-users"></i> Lista de Clientes</h1>
+    <div class="list">
+        <table>
+            <tr>
+                <th>Número</th>
+                <th>Saldo</th>
+                <th class="last-access">Ùltimo acesso</th>
+                <th>Cliente</th>
+                <th>Opções</th>
+            </tr>
+            <tr *ngFor="let account of accounts">
+                <th>{{account.number}}</th>
+                <th>{{account.balance}}</th>
+                <th class="last-access">{{account.last_access}}</th>
+                <th>{{account.client.name}} {{account.client.surname}}</th>
+                <th class="options">
+                    <i (click)="goToAccount(account.id)" class="fa-solid fa-pencil"></i>
+                    <i (click)="handleDelete(account.id)" class="fa-solid fa-trash"></i>
+                </th>
+            </tr>
+        </table>
+    </div>
+    <a class="return-btn" routerLink="/admin/panel"><app-lg-button text="Toque para voltar"></app-lg-button></a>
+</div>

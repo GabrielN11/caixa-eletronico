@@ -1,7 +1,7 @@
 import Client from "./classes/Client"
 
 export interface IAccount{
-    id: number,
+    id?: number,
     client_id: number,
     balance: number,
     last_access?: string | undefined,
