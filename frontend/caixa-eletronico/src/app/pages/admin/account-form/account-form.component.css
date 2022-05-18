@@ -52,8 +52,13 @@ h2{
         margin: 10px 0;
         font-size: 1rem;
     }
-    input{
+    input, select{
         font-size: 1.5rem;
         padding: 5px;
+    }
+
+    select{
+        width: 90%;
+        align-self: center;
     }
 }

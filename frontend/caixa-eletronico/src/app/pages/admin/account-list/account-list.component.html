@@ -4,15 +4,15 @@
         <table>
             <tr>
                 <th>Número</th>
-                <th>Saldo</th>
-                <th class="last-access">Ùltimo acesso</th>
+                <th class="mobile-none">Saldo</th>
+                <th class="mobile-none">Ùltimo acesso</th>
                 <th>Cliente</th>
                 <th>Opções</th>
             </tr>
             <tr *ngFor="let account of accounts">
                 <th>{{account.number}}</th>
-                <th>{{account.balance}}</th>
-                <th class="last-access">{{account.last_access}}</th>
+                <th class="mobile-none">{{account.balance.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })}}</th>
+                <th class="mobile-none">{{account.last_access}}</th>
                 <th>{{account.client.name}} {{account.client.surname}}</th>
                 <th class="options">
                     <i (click)="goToAccount(account.id)" class="fa-solid fa-pencil"></i>

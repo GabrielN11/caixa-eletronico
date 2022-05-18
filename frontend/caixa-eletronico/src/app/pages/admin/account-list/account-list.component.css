@@ -58,15 +58,17 @@ th{
     }
     table{
         font-size: 1rem;
+        width: 100%;
     }
     .list{
         padding: 10px;
+        align-self: stretch;
     }
     th{
-        min-width: auto;
+        min-width: 33%;
         padding: 10px;
     }
-    .last-access{
+    .mobile-none{
         display: none;
     }
 }
