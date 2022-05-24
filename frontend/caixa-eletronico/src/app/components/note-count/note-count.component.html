@@ -8,5 +8,5 @@
     </div>
     <h1>Total: {{value.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })}}</h1>
     <app-lg-button *ngIf="!is_adm" (state)="logout()" mode="danger" text="Finalizar"></app-lg-button>
-    <a routerLink="/client"><app-lg-button text="Toque para voltar"></app-lg-button></a>
+    <a [routerLink]="return_url"><app-lg-button text="Toque para voltar"></app-lg-button></a>
 </div>

@@ -12,6 +12,7 @@ export class NoteCountComponent implements OnInit {
   @Input() notes: Note[] = [];
   @Input() value: number = 0;
   @Input() is_adm: boolean = false;
+  @Input() return_url: string = '/';
 
   constructor(private accountService: AccountService) { }
 

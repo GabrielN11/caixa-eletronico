@@ -15,5 +15,5 @@
     <h1 class="drawing" *ngIf="drawing"><i class="fa-solid fa-fax"></i></h1>
     <h1 *ngIf="drawing">Contando notas, aguarde...</h1>
 
-    <app-note-count *ngIf="finished" [value]="value" [notes]="notes"></app-note-count>
+    <app-note-count *ngIf="finished" [value]="value" [notes]="notes" return_url="/client"></app-note-count>
 </div>
