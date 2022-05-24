@@ -12,7 +12,7 @@ import { Note } from 'src/models/classes/Note';
 })
 export class DepositComponent implements OnInit {
 
-  notes: any;
+  notes: Note[];
   value: number = 0;
 
   constructor(private operationService: OperationService, private warningService: WarningService,

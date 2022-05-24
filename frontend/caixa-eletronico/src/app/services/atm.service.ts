@@ -15,4 +15,10 @@ export class AtmService {
     const url = `${environment.apiUrl}/atm?token=${this.adminService.admin?.token}&id=${this.adminService.admin?.id}`;
     return this.http.get(url);
   }
+
+  deposit(notes: any):Observable<any>{
+    const url = `${environment.apiUrl}/atm?token=${this.adminService.admin?.token}&id=${this.adminService.admin?.id}`;
+    const headers = {'Content-Type': 'application/json'};
+    return this.http.post(url, {notes}, {headers});
+  }
 }

@@ -23,6 +23,8 @@ import { AccountFormComponent } from './pages/admin/account-form/account-form.co
 import { AccountListComponent } from './pages/admin/account-list/account-list.component';
 import { AtmComponent } from './pages/admin/atm/atm.component';
 import { NoteCountComponent } from './components/note-count/note-count.component';
+import { AtmDepositComponent } from './pages/admin/atm-deposit/atm-deposit.component';
+import { DepositLayoutComponent } from './components/deposit-layout/deposit-layout.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +46,9 @@ import { NoteCountComponent } from './components/note-count/note-count.component
     AccountFormComponent,
     AccountListComponent,
     AtmComponent,
-    NoteCountComponent
+    NoteCountComponent,
+    AtmDepositComponent,
+    DepositLayoutComponent
   ],
   imports: [
     BrowserModule,

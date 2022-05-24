@@ -1,0 +1,77 @@
+.wrapper{
+    width: 100vw;
+    display: flex;
+    padding: 40px;
+}
+
+h1{
+    padding-top: 25px;
+    margin: 0;
+    margin-bottom: 25px;
+    color: #e9ecef;
+    font-weight: normal;
+    font-size: 1.7rem;
+    text-align: center;
+}
+
+.value{
+    font-size: 2.5rem;
+}
+
+
+.note-container{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 50%;
+    gap: 10px;
+}
+
+.value-container{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 25px;
+    width: 50%;
+}
+
+.note-btn{
+    background: none;
+    border: 3px solid transparent;
+    cursor: pointer;
+    height: 127px;
+    width: 257px;
+}
+
+.note-btn:hover{
+    border: 3px solid #0d6efd;
+}
+
+.note-btn:active{
+    border: 3px solid green;
+}
+
+.note-btn img{
+    height: 120px;
+    width: 250px;
+}
+
+@media(max-width: 600px){
+    .wrapper{
+        flex-direction: column;
+    }
+    .note-container{
+        width: 100%;
+    }
+    .value-container{
+        width: 100%;
+    }
+    .note-btn{
+        height: 97px;
+        width: 227px;
+    }
+
+    .note-btn img{
+        height: 90px;
+        width: 220px;
+    }
+}
