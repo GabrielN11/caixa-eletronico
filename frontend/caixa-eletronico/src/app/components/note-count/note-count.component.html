@@ -1,0 +1,12 @@
+<div class="finished-container">
+    <h1 *ngIf="!is_adm">Recolha seu dinheiro!</h1>
+    <div class="note-container">
+        <span *ngFor="let note of notes" class="note">
+            <img *ngIf="note.quantity > 0" [src]="note.concatPath('../../../assets')">
+            <span *ngIf="note.quantity > 0">Quantidade: {{note.quantity}}</span>
+        </span>
+    </div>
+    <h1>Total: {{value.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })}}</h1>
+    <app-lg-button *ngIf="!is_adm" (state)="logout()" mode="danger" text="Finalizar"></app-lg-button>
+    <a routerLink="/client"><app-lg-button text="Toque para voltar"></app-lg-button></a>
+</div>

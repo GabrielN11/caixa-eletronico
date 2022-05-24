@@ -66,8 +66,4 @@ export class WithdrawComponent implements OnInit {
     }
   }
 
-  logout(): void {
-    this.accountService.logout();  
-  }
-
 }

@@ -13,36 +13,6 @@ h1{
     animation: anim 1.5s infinite;
 }
 
-.finished-container{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-}
-
-.note-container{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 15px;
-}
-
-.note{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    gap: 5px;
-    color: #fff;
-}
-
-.note-container img{
-    height: 120px;
-    width: 250px;
-}
-
 @keyframes anim {
     0%{
         transform: scale(1);

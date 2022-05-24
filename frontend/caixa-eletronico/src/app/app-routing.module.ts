@@ -14,6 +14,7 @@ import { ClientFormComponent } from './pages/admin/client-form/client-form.compo
 import { ClientListComponent } from './pages/admin/client-list/client-list.component';
 import { AccountFormComponent } from './pages/admin/account-form/account-form.component';
 import { AccountListComponent } from './pages/admin/account-list/account-list.component';
+import { AtmComponent } from './pages/admin/atm/atm.component';
 
 const routes: Routes = [
   {
@@ -63,9 +64,14 @@ const routes: Routes = [
   {
     path: 'admin/account-form',
     component: AccountFormComponent
-  },{
+  },
+  {
     path: 'admin/account-list',
     component: AccountListComponent
+  },
+  {
+    path: 'admin/atm',
+    component: AtmComponent
   }
 ];
 

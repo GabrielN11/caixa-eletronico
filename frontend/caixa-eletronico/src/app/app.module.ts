@@ -21,6 +21,8 @@ import { ClientFormComponent } from './pages/admin/client-form/client-form.compo
 import { ClientListComponent } from './pages/admin/client-list/client-list.component';
 import { AccountFormComponent } from './pages/admin/account-form/account-form.component';
 import { AccountListComponent } from './pages/admin/account-list/account-list.component';
+import { AtmComponent } from './pages/admin/atm/atm.component';
+import { NoteCountComponent } from './components/note-count/note-count.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +42,9 @@ import { AccountListComponent } from './pages/admin/account-list/account-list.co
     ClientFormComponent,
     ClientListComponent,
     AccountFormComponent,
-    AccountListComponent
+    AccountListComponent,
+    AtmComponent,
+    NoteCountComponent
   ],
   imports: [
     BrowserModule,

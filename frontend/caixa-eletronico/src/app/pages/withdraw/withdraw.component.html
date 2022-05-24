@@ -15,16 +15,5 @@
     <h1 class="drawing" *ngIf="drawing"><i class="fa-solid fa-fax"></i></h1>
     <h1 *ngIf="drawing">Contando notas, aguarde...</h1>
 
-    <div *ngIf="finished" class="finished-container">
-        <h1>Recolha seu dinheiro!</h1>
-        <div class="note-container">
-            <span *ngFor="let note of notes" class="note">
-                <img *ngIf="note.quantity > 0" [src]="note.concatPath('../../../assets')">
-                <span *ngIf="note.quantity > 0">Quantidade: {{note.quantity}}</span>
-            </span>
-        </div>
-        <h1>Total: {{value.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })}}</h1>
-        <app-lg-button (state)="logout()" mode="danger" text="Finalizar"></app-lg-button>
-        <a routerLink="/client"><app-lg-button text="Toque para voltar"></app-lg-button></a>
-    </div>
+    <app-note-count *ngIf="finished" [value]="value" [notes]="notes"></app-note-count>
 </div>
